@@ -1,0 +1,35 @@
+:root {
+  --vp-home-hero-name-color: var(--vp-c-text-1);
+}
+
+/* 首页产品截图带 */
+.shot-band {
+  max-width: 1200px;
+  margin: 16px auto 64px;
+  padding: 0 24px;
+}
+
+.shot-band figure {
+  margin: 0 0 48px;
+}
+
+.shot-band img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.10);
+}
+
+.shot-band figcaption {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--vp-c-text-2);
+}
+
+/* 首页正文与截图带之间不要出现割裂的分隔线 */
+.VPHome .vp-doc > div:first-child > h2:first-of-type {
+  border-top: none;
+}
