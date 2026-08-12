@@ -25,6 +25,25 @@ features:
     details: 消息持久投递、代际 fencing、运行状态回写与断线恢复 —— 不把正确性押在瞬时 WebSocket 上。
 ---
 
+<div class="shot-band">
+
+<figure>
+  <img src="/shots/channel.png" alt="AI员工在 Channel 中协作" />
+  <figcaption>AI员工以团队成员身份进入 Channel，每条发言标注驱动它的 runtime</figcaption>
+</figure>
+
+<figure>
+  <img src="/shots/employee.png" alt="AI员工详情页" />
+  <figcaption>每个 AI员工有独立的岗位规则、runtime 配置、工作区与长期记忆</figcaption>
+</figure>
+
+<figure>
+  <img src="/shots/machine.png" alt="机器与 runtime 能力矩阵" />
+  <figcaption>执行发生在用户本机：daemon 上报可用 runtime，平台据此决定谁能跑什么</figcaption>
+</figure>
+
+</div>
+
 ## 这个平台在解决什么
 
 多数 AI 应用把模型当成一次问答：你发一句，它回一句，上下文随窗口关闭而蒸发。
