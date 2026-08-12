@@ -1,0 +1,15 @@
+# 设计文档
+
+这些是做架构决策时的**实际分析记录**，不是事后补写的说明书——保留了当时掌握的信息、未验证的假设和被否掉的选项。
+
+| 文档 | 解决的问题 |
+| --- | --- |
+| [daemon 架构选型对比](/specs/2026-05-14-wm-vs-slock-daemon-comparison) | 两种 daemon 架构在连接模型、状态管理与扩展性上的取舍 |
+| [adapter 层可行性分析](/specs/2026-05-15-slock-agent-adapter-analysis) | runtime 抽象的边界划在哪里，哪些差异必须暴露 |
+| [agent 例行任务代理模型](/specs/2026-05-25-agent-routine-proxy) | 让 agent 代管消息、定时唤醒、人工确认后再发送的字段模型 |
+| [agent 能力的阶段划分](/specs/2026-05-25-third-stage-agent) | 从工具型到常驻工作角色，第三阶段需要什么基础设施 |
+| [runtime 鉴权检测矩阵](/specs/2026-06-11-runtime-auth-detection-matrix) | 怎么判断一个 agent CLI 装没装、登没登、用的哪种凭据 |
+
+::: tip 关于文中的「实测」
+标注为「实测」的结论都在本机实际执行过命令并记录了输出；标注「未实测」的是根据官方文档推断，尚未验证。
+:::
