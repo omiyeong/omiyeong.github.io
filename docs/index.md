@@ -26,13 +26,6 @@ layout: home
     <span>每一页都区分已验证的能力、正在验证的假设和明确停止的尝试。</span>
   </header>
 
-  <div class="exploration-tabs" role="navigation" aria-label="NiuMa 四条探索线">
-    <a href="/runtime/"><b>01</b><span>Agent Runtime</span></a>
-    <a href="/employees/"><b>02</b><span>AI员工</span></a>
-    <a href="/collaboration/"><b>03</b><span>办公协作</span></a>
-    <a href="/personal-loop/"><b>04</b><span>Personal Loop</span></a>
-  </div>
-
   <div class="exploration-grid">
     <a class="exploration-card runtime" href="/runtime/">
       <div><span class="status verified">已实现并持续验证</span><b>01 / EXECUTION</b></div>

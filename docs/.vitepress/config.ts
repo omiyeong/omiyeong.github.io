@@ -19,8 +19,10 @@ export default withMermaid(defineConfig({
 
   themeConfig: {
     nav: [
-      { text: "首页", link: "/" },
-      { text: "四条探索", link: "/#explorations" },
+      { text: "Agent Runtime", link: "/runtime/" },
+      { text: "AI员工", link: "/employees/" },
+      { text: "办公协作", link: "/collaboration/" },
+      { text: "Personal Loop", link: "/personal-loop/" },
       { text: "工程笔记", link: "/engineering/" },
       { text: "GitHub", link: "https://github.com/omiyeong" },
     ],
