@@ -1,80 +1,75 @@
 ---
 layout: home
-
-hero:
-  name: "把 AI 变成同事"
-  text: "而不是聊天窗口里的助手"
-  tagline: NiuMa 是一个 AI员工平台 —— AI 有岗位、进团队、被 @、要审批、能交付。这里记录它的架构、取舍与踩过的坑。
-  actions:
-    - theme: brand
-      text: 项目概览
-      link: /niuma/
-    - theme: alt
-      text: 设计文档
-      link: /specs/
-    - theme: alt
-      text: GitHub
-      link: https://github.com/omiyeong/niuma-core
-
-features:
-  - title: 14 万行 TypeScript
-    details: Workspace Server、WM Daemon、Web、Mobile 与共享协议层构成的 monorepo，不是 demo 规模的原型。
-  - title: 5 种 Agent Runtime 统一适配
-    details: Claude Code、Codex CLI、AutoClaw 等 runtime 的进程模型、传输、会话与中断语义各不相同，收敛到一层契约之下。
-  - title: 可靠交付而非尽力而为
-    details: 消息持久投递、代际 fencing、运行状态回写与断线恢复 —— 不把正确性押在瞬时 WebSocket 上。
 ---
 
-<div class="shot-band">
+<section class="niuma-landing">
+  <p class="niuma-kicker">NIUMA / FIELD NOTES 2026</p>
+  <h1>AI 的下一阶段，<br><em>不是更会聊天。</em></h1>
+  <p class="niuma-lede">NiuMa 记录四次关于 AI 如何进入真实工作的探索：先让 Agent 能运行和协作，再让它拥有岗位与业务入口；然后重新思考团队协作，最后把个人研发交付变成有证据的闭环。</p>
+  <div class="niuma-actions">
+    <a class="niuma-button primary" href="#explorations">查看四条探索线</a>
+    <a class="niuma-button" href="/employees/">从 AI员工开始</a>
+  </div>
+</section>
 
-<figure>
-  <img src="/shots/channel.png" alt="AI员工在 Channel 中协作" />
-  <figcaption>AI员工以团队成员身份进入 Channel，每条发言标注驱动它的 runtime</figcaption>
-</figure>
+<section class="landing-reel" aria-label="NiuMa 真实界面速览">
+  <video autoplay muted loop playsinline poster="/shots/channel-live.png" aria-label="登录后进入 NiuMa engineering 频道的真实操作录像">
+    <source src="/shots/channel-live.webm" type="video/webm">
+  </video>
+  <div><b>LIVE PRODUCT REEL</b><span>真实操作录像：登录、进入 Workspace，再打开 engineering 协作频道。</span></div>
+</section>
 
-<figure>
-  <img src="/shots/employee.png" alt="AI员工详情页" />
-  <figcaption>每个 AI员工有独立的岗位规则、runtime 配置、工作区与长期记忆</figcaption>
-</figure>
+<section id="explorations" class="exploration-index">
+  <header class="section-heading">
+    <p>FOUR DIRECTIONS</p>
+    <h2>不是路线图，是走过的路。</h2>
+    <span>每一页都区分已验证的能力、正在验证的假设和明确停止的尝试。</span>
+  </header>
 
-<figure>
-  <img src="/shots/machine.png" alt="机器与 runtime 能力矩阵" />
-  <figcaption>执行发生在用户本机：daemon 上报可用 runtime，平台据此决定谁能跑什么</figcaption>
-</figure>
+  <div class="exploration-tabs" role="navigation" aria-label="NiuMa 四条探索线">
+    <a href="/runtime/"><b>01</b><span>Agent Runtime</span></a>
+    <a href="/employees/"><b>02</b><span>AI员工</span></a>
+    <a href="/collaboration/"><b>03</b><span>办公协作</span></a>
+    <a href="/personal-loop/"><b>04</b><span>Personal Loop</span></a>
+  </div>
 
-</div>
+  <div class="exploration-grid">
+    <a class="exploration-card runtime" href="/runtime/">
+      <div><span class="status verified">已实现并持续验证</span><b>01 / EXECUTION</b></div>
+      <h3>让 Agent<br>进入真实环境</h3>
+      <p>统一多种 coding runtime，经由本机 daemon 执行；人可以远程发起、在 Channel 中 @ 它，并在 Thread 里看见过程。</p>
+      <i>查看运行底座 <strong>→</strong></i>
+    </a>
+    <a class="exploration-card employee" href="/employees/">
+      <div><span class="status live">已在内部使用</span><b>02 / ROLE</b></div>
+      <h3>让 Agent<br>成为 AI员工</h3>
+      <p>岗位职责、外部入口、资料索引与复盘成长，让一次模型调用变成能持续承担业务的工作身份。</p>
+      <i>查看业务闭环 <strong>→</strong></i>
+    </a>
+    <a class="exploration-card collaboration" href="/collaboration/">
+      <div><span class="status research">设计验证中</span><b>03 / COLLABORATION</b></div>
+      <h3>让团队协作<br>不再只靠人找人</h3>
+      <p>从个人分身、飞书全局 Agent 到项目责任协作：把失败的假设和最终收敛的边界都留下来。</p>
+      <i>查看三次演进 <strong>→</strong></i>
+    </a>
+    <a class="exploration-card loop" href="/personal-loop/">
+      <div><span class="status branch">独立分支验证中</span><b>04 / DELIVERY</b></div>
+      <h3>让个人交付<br>形成可恢复的 Loop</h3>
+      <p>任务、worktree、测试、独立 Review、审批与交付由同一状态机连接；证据不足时，流程必须停下。</p>
+      <i>查看交付控制面 <strong>→</strong></i>
+    </a>
+  </div>
+</section>
 
-## 这个平台在解决什么
+<section class="proof-strip">
+  <div><b>人类保留控制权</b><span>审批不是提示词，而是流程状态与一次性授权。</span></div>
+  <div><b>执行发生在本机</b><span>Server 编排与审计；daemon 驱动本地 runtime。</span></div>
+  <div><b>完成不等于正确</b><span>测试、Review、外部动作与部署各自需要独立证据。</span></div>
+</section>
 
-多数 AI 应用把模型当成一次问答：你发一句，它回一句，上下文随窗口关闭而蒸发。
-
-NiuMa 的假设不同——**如果 AI 要真正承担工作，它就得像同事一样存在**：有岗位和工作规则，是 Workspace 和 Channel 的成员，能被 @ 到、能在 Thread 里跟别的 AI员工分工、遇到高风险动作要向人类申请授权、做完的事有记录可复盘。
-
-```mermaid
-flowchart LR
-    Human["人类<br/>目标与监督"] --> Create["创建 AI员工<br/>岗位 / 技能 / Runtime"]
-    Create --> Team["加入 Workspace / Channel"]
-    Team --> Trigger["消息、任务或外部事件"]
-    Trigger --> Route["Workspace Server<br/>鉴权、路由与持久化"]
-    Route --> Execute["WM Daemon + Runtime<br/>在员工 workspace 执行"]
-    Execute --> Collab["Thread / @mention<br/>寻址其他 AI员工"]
-    Collab --> Execute
-    Execute --> Decision{"需要人类处理？"}
-    Decision -->|"是"| Inbox["Inbox<br/>审批 / 纠正 / 接管"]
-    Inbox --> Execute
-    Decision -->|"否"| Deliver["交付并回写状态"]
-    Deliver --> Memory["记忆与复盘"]
-    Memory --> Trigger
-```
-
-这个模型带来的工程问题，比「接一个大模型 API」难得多：执行发生在用户本机的 daemon 里，网络会断、进程会崩、runtime 各说各话、人类审批是异步的。**这个站点记录的就是这些问题怎么解决的。**
-
-## 从哪里开始读
-
-| 如果你想知道 | 读这篇 |
-| --- | --- |
-| 怎么把五种 agent CLI 统一成一层抽象 | [统一多种 Agent Runtime](/posts/runtime-abstraction) |
-| 两种 daemon 架构怎么选 | [daemon 架构选型对比](/specs/2026-05-14-wm-vs-slock-daemon-comparison) |
-| 怎么判断一个 agent CLI 有没有登录 | [runtime 鉴权检测矩阵](/specs/2026-06-11-runtime-auth-detection-matrix) |
-| AI 能力演进到哪一阶段了 | [agent 能力的阶段划分](/specs/2026-05-25-third-stage-agent) |
-| 想直接看代码 | [github.com/omiyeong/niuma-core](https://github.com/omiyeong/niuma-core) |
+<section class="reading-room">
+  <p class="niuma-kicker">ENGINEERING ROOM</p>
+  <h2>深入实现，而不跳过取舍。</h2>
+  <p>架构、协议与设计复盘仍保留为工程笔记；它们解释系统为何这样设计，而不是替代产品本身。</p>
+  <a href="/engineering/">进入工程笔记 →</a>
+</section>

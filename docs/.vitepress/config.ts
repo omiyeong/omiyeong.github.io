@@ -20,21 +20,27 @@ export default withMermaid(defineConfig({
   themeConfig: {
     nav: [
       { text: "首页", link: "/" },
-      { text: "NiuMa", link: "/niuma/" },
-      { text: "设计文档", link: "/specs/" },
+      { text: "四条探索", link: "/#explorations" },
+      { text: "工程笔记", link: "/engineering/" },
       { text: "GitHub", link: "https://github.com/omiyeong" },
     ],
 
     sidebar: {
-      "/niuma/": [
+      "/runtime/": [
         {
-          text: "NiuMa",
+          text: "NiuMa 探索",
           items: [
-            { text: "项目概览", link: "/niuma/" },
-            { text: "统一多种 Agent Runtime", link: "/posts/runtime-abstraction" },
+            { text: "01 · Agent Runtime", link: "/runtime/" },
+            { text: "02 · AI员工", link: "/employees/" },
+            { text: "03 · 办公协作", link: "/collaboration/" },
+            { text: "04 · Personal Loop", link: "/personal-loop/" },
           ],
         },
       ],
+      "/employees/": [{ text: "NiuMa 探索", items: [{ text: "01 · Agent Runtime", link: "/runtime/" }, { text: "02 · AI员工", link: "/employees/" }, { text: "03 · 办公协作", link: "/collaboration/" }, { text: "04 · Personal Loop", link: "/personal-loop/" }] }],
+      "/collaboration/": [{ text: "NiuMa 探索", items: [{ text: "01 · Agent Runtime", link: "/runtime/" }, { text: "02 · AI员工", link: "/employees/" }, { text: "03 · 办公协作", link: "/collaboration/" }, { text: "04 · Personal Loop", link: "/personal-loop/" }] }],
+      "/personal-loop/": [{ text: "NiuMa 探索", items: [{ text: "01 · Agent Runtime", link: "/runtime/" }, { text: "02 · AI员工", link: "/employees/" }, { text: "03 · 办公协作", link: "/collaboration/" }, { text: "04 · Personal Loop", link: "/personal-loop/" }] }],
+      "/engineering/": [{ text: "工程笔记", items: [{ text: "工程笔记首页", link: "/engineering/" }, { text: "统一多种 Agent Runtime", link: "/posts/runtime-abstraction" }, { text: "全部设计文档", link: "/specs/" }] }],
       "/posts/": [
         {
           text: "文章",
