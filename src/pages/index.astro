@@ -1,0 +1,150 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Note from '~/components/widgets/Note.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Content from '~/components/widgets/Content.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'NiuMa — 让 AI 进入真实工作',
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <Hero
+    tagline="NiuMa · AI Agent 平台"
+    actions={[
+      { variant: 'primary', text: '了解 AI员工', href: '/employees', icon: 'tabler:arrow-right' },
+      { text: '查看四个方向', href: '#directions' },
+    ]}
+  >
+    <Fragment slot="title">
+      AI 的下一阶段，<br /><span class="text-accent dark:text-white">是进入真实工作。</span>
+    </Fragment>
+    <Fragment slot="subtitle">
+      NiuMa 把 Agent Runtime、岗位入口、团队协作和研发交付放进同一个工作空间，让 Agent 能被远程唤醒、加入
+      Channel、承担职责并留下可检查的结果。
+    </Fragment>
+    <Fragment slot="image">
+      <video
+        class="w-full rounded-xl border border-slate-700 shadow-2xl"
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="/shots/channel-live.png"
+      >
+        <source src="/shots/channel-live.webm" type="video/webm" />
+      </video>
+    </Fragment>
+  </Hero>
+
+  <Note title="四条探索线" description="Agent Runtime · AI员工 · 办公协作 · Personal Loop" />
+
+  <Features2
+    id="directions"
+    tagline="FOUR DIRECTIONS"
+    title="从能运行，到能交付。"
+    subtitle="四个方向不是功能菜单，而是 NiuMa 逐步回答的四个问题。"
+    columns={2}
+    items={[
+      {
+        title: '01 · Agent Runtime',
+        description: '统一 Codex、Claude 等执行引擎，通过本机 daemon 让 Agent 可被远程控制并进入 Channel 协作。',
+        icon: 'tabler:device-desktop-code',
+        callToAction: { text: '查看运行底座', href: '/runtime' },
+      },
+      {
+        title: '02 · AI员工',
+        description: '把岗位职责、业务入口、文档和持续学习装进一个长期工作身份，而不是一次聊天。',
+        icon: 'tabler:user-bolt',
+        callToAction: { text: '查看 AI员工', href: '/employees' },
+      },
+      {
+        title: '03 · 办公协作',
+        description: '从个人分身和全局 Agent 的失败中收敛到项目级上下文与责任协作。',
+        icon: 'tabler:users-group',
+        callToAction: { text: '查看协作演进', href: '/collaboration' },
+      },
+      {
+        title: '04 · Personal Loop',
+        description: '把任务、实现、测试、Review、审批和部署连接成可恢复、有证据的交付闭环。',
+        icon: 'tabler:refresh-dot',
+        callToAction: { text: '查看交付闭环', href: '/personal-loop' },
+      },
+    ]}
+  >
+    <Fragment slot="bg"><div class="absolute inset-0 bg-slate-50 dark:bg-slate-950"></div></Fragment>
+  </Features2>
+
+  <Content
+    tagline="REMOTE AGENT RUNTIME"
+    title="人在手机上发起，Agent 在电脑上完成。"
+    items={[
+      { title: '远程入口', description: '从 Channel 或移动端向本机 Agent 发起真实任务。' },
+      { title: '本地执行', description: 'daemon 连接 Workspace Server，并驱动用户电脑上的 coding runtime。' },
+      { title: '过程可见', description: '消息、Thread、运行状态和权限请求回到同一个协作空间。' },
+    ]}
+    callToAction={{ text: '了解 Agent Runtime', href: '/runtime' }}
+  >
+    <Fragment slot="image"
+      ><img
+        class="w-full rounded-xl border border-slate-700 shadow-2xl"
+        src="/shots/channel.png"
+        alt="NiuMa Channel 中的 Agent 协作界面"
+        loading="lazy"
+      /></Fragment
+    >
+  </Content>
+
+  <Content
+    isReversed
+    tagline="AI EMPLOYEE"
+    title="Agent 不只回答问题，而是长期承担一个岗位。"
+    items={[
+      { title: '岗位职责', description: '用员工说明定义工作范围、规则、语气和升级边界。' },
+      { title: '业务知识', description: '文档缩印、问题知识库和查询优化让答案建立在真实资料上。' },
+      { title: '持续进化', description: '把真实问题、反馈和修正沉淀为下一次工作的上下文。' },
+    ]}
+    callToAction={{ text: '查看 AI员工详情', href: '/employees' }}
+  >
+    <Fragment slot="image"
+      ><img
+        class="w-full rounded-xl border border-slate-700 shadow-2xl"
+        src="/shots/employee.png"
+        alt="NiuMa AI员工配置与状态界面"
+        loading="lazy"
+      /></Fragment
+    >
+  </Content>
+
+  <Content
+    tagline="LOCAL CONTROL PLANE"
+    title="产品界面在前，本地执行边界在后。"
+    items={[
+      { title: 'Workspace Server', description: '负责成员、Channel、消息、任务、审批和运行状态。' },
+      { title: 'Machine & daemon', description: '负责本机 runtime、workspace、命令和权限执行。' },
+      { title: 'Human gate', description: '高风险外部动作必须经过可记录的一次性授权。' },
+    ]}
+  >
+    <Fragment slot="image"
+      ><img
+        class="w-full rounded-xl border border-slate-700 shadow-2xl"
+        src="/shots/machine.png"
+        alt="NiuMa Machine 与本地 daemon 状态界面"
+        loading="lazy"
+      /></Fragment
+    >
+  </Content>
+
+  <CallToAction
+    title="先看产品，再深入架构。"
+    subtitle="四个方向解释 NiuMa 如何进入真实工作；工程笔记记录协议、边界和失败过的方案。"
+    actions={[
+      { variant: 'primary', text: '从 AI员工开始', href: '/employees', icon: 'tabler:arrow-right' },
+      { text: '进入工程笔记', href: '/engineering' },
+    ]}
+  />
+</Layout>

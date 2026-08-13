@@ -1,0 +1,105 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Note from '~/components/widgets/Note.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: '工程笔记',
+  description: 'NiuMa 在 Agent Runtime、daemon、鉴权检测、例程执行与办公协作上的公开工程记录。',
+};
+---
+
+<Layout metadata={metadata}>
+  <Hero
+    tagline="ENGINEERING NOTES"
+    actions={[
+      { variant: 'primary', text: '开始阅读', href: '#notes', icon: 'tabler:arrow-down' },
+      { text: '查看 GitHub', href: 'https://github.com/omiyeong/niuma-core', target: '_blank' },
+    ]}
+  >
+    <Fragment slot="title">
+      记录实现依据，<br /><span class="text-accent dark:text-white">也记录被否证的路径。</span>
+    </Fragment>
+    <Fragment slot="subtitle">
+      这些文章说明 NiuMa 如何处理 runtime
+      差异、本机执行边界、鉴权检测、协作上下文与例程调度。内容用于公开工程判断，不替代当前产品状态。
+    </Fragment>
+  </Hero>
+
+  <Note
+    title="阅读说明"
+    description="文章与设计文档按形成时间保留；具体实现可能继续演进，请以文中日期和当前公开仓库代码为准。"
+  />
+
+  <Features2
+    id="notes"
+    tagline="FEATURED"
+    title="从运行时抽象开始。"
+    columns={3}
+    items={[
+      {
+        title: '统一多种 Agent Runtime',
+        description: '比较 Claude Code、Codex CLI 等执行引擎的进程、会话、传输与中断语义，并定义平台适配边界。',
+        icon: 'tabler:binary-tree',
+        callToAction: { text: '阅读文章', href: '/posts/runtime-abstraction' },
+      },
+      {
+        title: 'daemon 架构选型对比',
+        description: '分析执行为何保留在用户本机，以及 NiuMa daemon 与另一种本机控制方案的结构差异。',
+        icon: 'tabler:device-desktop-cog',
+        callToAction: { text: '阅读文档', href: '/specs/2026-05-14-wm-vs-slock-daemon-comparison' },
+      },
+      {
+        title: 'runtime 鉴权检测矩阵',
+        description: '区分命令存在、登录有效与真实可执行，避免把进程可启动误判为 runtime 可用。',
+        icon: 'tabler:key',
+        callToAction: { text: '阅读文档', href: '/specs/2026-06-11-runtime-auth-detection-matrix' },
+      },
+    ]}
+  >
+    <Fragment slot="bg"><div class="absolute inset-0 bg-slate-50 dark:bg-slate-950"></div></Fragment>
+  </Features2>
+
+  <Features2
+    tagline="DESIGN RECORDS"
+    title="协作与长期任务的设计记录。"
+    columns={2}
+    items={[
+      {
+        title: 'Agent 例程代理',
+        description: '讨论定时任务、长时运行、失败恢复和人工控制如何进入 Agent 工作流。',
+        icon: 'tabler:clock-play',
+        callToAction: { text: '阅读设计', href: '/specs/2026-05-25-agent-routine-proxy' },
+      },
+      {
+        title: '第三阶段 Agent',
+        description: '从 Chatbot、Coding Agent 继续推演长期工作身份、组织入口和协作关系。',
+        icon: 'tabler:user-bolt',
+        callToAction: { text: '阅读设计', href: '/specs/2026-05-25-third-stage-agent' },
+      },
+      {
+        title: 'Agent Adapter 分析',
+        description: '梳理不同 runtime adapter 的职责、事件模型和平台集成方式。',
+        icon: 'tabler:plug-connected',
+        callToAction: { text: '阅读分析', href: '/specs/2026-05-15-slock-agent-adapter-analysis' },
+      },
+      {
+        title: '完整文档目录',
+        description: '按时间查看公开的架构比较、协议分析和产品探索记录。',
+        icon: 'tabler:books',
+        callToAction: { text: '查看目录', href: '/specs' },
+      },
+    ]}
+  />
+
+  <CallToAction
+    title="先理解产品，再进入实现细节。"
+    subtitle="四个方向分别说明运行底座、长期员工、项目协作与个人交付闭环。"
+    actions={[
+      { variant: 'primary', text: '返回产品首页', href: '/', icon: 'tabler:arrow-left' },
+      { text: '查看 Agent Runtime', href: '/runtime' },
+    ]}
+  />
+</Layout>

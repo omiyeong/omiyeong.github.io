@@ -1,0 +1,168 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Note from '~/components/widgets/Note.astro';
+import Features from '~/components/widgets/Features.astro';
+import Content from '~/components/widgets/Content.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'AI员工',
+  description: 'NiuMa 对 AI 下一阶段的探索：让 Agent 获得岗位、业务入口、组织资料与持续进化能力。',
+};
+---
+
+<Layout metadata={metadata}>
+  <Hero
+    tagline="02 · AI EMPLOYEE"
+    actions={[
+      { variant: 'primary', text: '查看真实界面', href: '#product', icon: 'tabler:arrow-down' },
+      { text: '查看项目源码', href: 'https://github.com/omiyeong/niuma-core', target: '_blank' },
+    ]}
+  >
+    <Fragment slot="title">
+      从 Chatbot 到 Agent，<br /><span class="text-accent dark:text-white">再到 AI员工。</span>
+    </Fragment>
+    <Fragment slot="subtitle">
+      AI员工不是新的聊天框。它拥有岗位职责、外部业务入口、可追溯的组织资料和长期工作记录，可以在明确边界内持续承担真实业务。
+    </Fragment>
+    <Fragment slot="image">
+      <img
+        class="w-full rounded-xl border border-slate-700 shadow-2xl"
+        src="/shots/employee.png"
+        alt="NiuMa AI员工详情页"
+      />
+    </Fragment>
+  </Hero>
+
+  <Note
+    title="当前状态"
+    description="已在公司内部部署多名客服 AI员工，并持续用真实问题校准职责、资料查询与升级边界。"
+  />
+
+  <Features
+    id="product"
+    tagline="WHAT CHANGED"
+    title="变化不在模型，而在工作身份。"
+    columns={3}
+    items={[
+      {
+        title: '有岗位',
+        description: '岗位说明定义职责、工作规则、表达方式、允许使用的能力和需要转交人的情况。',
+        icon: 'tabler:id-badge-2',
+      },
+      {
+        title: '有入口',
+        description: 'AI员工可以进入飞书客服、Channel 和其他业务入口，持续接触真实外界信息。',
+        icon: 'tabler:message-dots',
+      },
+      {
+        title: '有资料',
+        description: '需要参考的文档、文件夹和 Wiki 直接写进岗位规则，并在回答时留下来源边界。',
+        icon: 'tabler:books',
+      },
+    ]}
+  />
+
+  <Content
+    isReversed
+    tagline="PRODUCT SURFACE"
+    title="像创建员工一样配置，而不是拼一段 Prompt。"
+    items={[
+      { title: '模板创建', description: '从客服等员工模板开始，再调整岗位、性格、模型与工作规则。' },
+      { title: '能力可见', description: '员工可使用的 skills、所在 Channel、运行机器和当前状态都在产品界面中呈现。' },
+      {
+        title: '过程可监督',
+        description: '人类在 Channel、Thread 和 Inbox 中查看工作过程，并处理需要审批或升级的问题。',
+      },
+    ]}
+  >
+    <Fragment slot="image"
+      ><img
+        class="w-full rounded-xl border border-slate-700 shadow-2xl"
+        src="/shots/channel.png"
+        alt="AI员工在 NiuMa Channel 中参与工作"
+        loading="lazy"
+      /></Fragment
+    >
+  </Content>
+
+  <Steps
+    tagline="KNOWLEDGE PIPELINE"
+    title="资料不是全部塞进上下文，而是按问题逐步收敛。"
+    subtitle="早期的 LLM Wiki 原型已经演进成一条可检查的查询链路。"
+    items={[
+      {
+        title: '01 · 理解问题',
+        description: '根据岗位和当前会话判断问题属于哪个业务范围。',
+        icon: 'tabler:message-question',
+      },
+      {
+        title: '02 · 文档缩印',
+        description: '先使用文档摘要和结构索引缩小需要读取的资料范围。',
+        icon: 'tabler:file-description',
+      },
+      {
+        title: '03 · 问题知识库',
+        description: '复用经过验证的高频问题与答案，减少重复检索和模型消耗。',
+        icon: 'tabler:database-search',
+      },
+      {
+        title: '04 · 回到原文',
+        description: '需要精确信息时读取对应原始文档，再形成有边界的回答。',
+        icon: 'tabler:zoom-check',
+      },
+    ]}
+  />
+
+  <Features2
+    tagline="EVOLUTION LOOP"
+    title="每一次真实工作，都能成为下一次的输入。"
+    subtitle="自进化不是让模型自行修改规则，而是把问题、反馈和修正整理成可审核的知识资产。"
+    columns={3}
+    items={[
+      {
+        title: '发现缺口',
+        description: '记录未命中资料、低置信回答、人工转接和用户纠正。',
+        icon: 'tabler:alert-circle',
+      },
+      { title: '形成候选', description: '把高价值问题整理为 FAQ、文档索引或岗位规则的候选更新。', icon: 'tabler:bulb' },
+      {
+        title: '审核生效',
+        description: '只有经过负责人确认的内容才进入正式资料和后续回答链路。',
+        icon: 'tabler:shield-check',
+      },
+    ]}
+  >
+    <Fragment slot="bg"><div class="absolute inset-0 bg-slate-50 dark:bg-slate-950"></div></Fragment>
+  </Features2>
+
+  <Features
+    tagline="BOUNDARIES"
+    title="AI员工必须知道什么时候不能继续回答。"
+    columns={2}
+    items={[
+      {
+        title: '资料不足',
+        description: '没有权威资料或来源冲突时，明确说明不足并转交人类，而不是补全一个看似合理的答案。',
+        icon: 'tabler:hand-stop',
+      },
+      {
+        title: '权限不足',
+        description: '外部写入、敏感信息和高风险动作进入审批流；模型不能通过一段话绕过权限边界。',
+        icon: 'tabler:lock',
+      },
+    ]}
+  />
+
+  <CallToAction
+    title="下一步：从单个岗位走向项目协作。"
+    subtitle="AI员工解决长期工作身份；办公协作继续回答多个 Agent 和人如何围绕同一个项目交换上下文。"
+    actions={[
+      { variant: 'primary', text: '继续看办公协作', href: '/collaboration', icon: 'tabler:arrow-right' },
+      { text: '返回首页', href: '/' },
+    ]}
+  />
+</Layout>

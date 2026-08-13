@@ -1,0 +1,169 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Note from '~/components/widgets/Note.astro';
+import Features from '~/components/widgets/Features.astro';
+import Content from '~/components/widgets/Content.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'Agent Runtime',
+  description: 'NiuMa 的本地执行底座：统一多种 coding runtime，并通过 Channel、Server 与 daemon 完成远程调度。',
+};
+---
+
+<Layout metadata={metadata}>
+  <Hero
+    tagline="01 · AGENT RUNTIME"
+    actions={[
+      { variant: 'primary', text: '查看执行链路', href: '#execution', icon: 'tabler:arrow-down' },
+      { text: '阅读架构文章', href: '/posts/runtime-abstraction' },
+    ]}
+  >
+    <Fragment slot="title">
+      统一运行底座，<br /><span class="text-accent dark:text-white">让 Agent 在真实电脑上工作。</span>
+    </Fragment>
+    <Fragment slot="subtitle">
+      NiuMa 将 Codex、Claude Code 等执行引擎置于本机 daemon 之后。平台负责成员、消息、任务与权限，daemon 负责
+      workspace、运行时调用和状态回写。
+    </Fragment>
+    <Fragment slot="image">
+      <img
+        class="w-full rounded-xl border border-slate-700 shadow-2xl"
+        src="/shots/machine.png"
+        alt="NiuMa Machine 与 daemon 状态页"
+      />
+    </Fragment>
+  </Hero>
+
+  <Note
+    title="当前状态"
+    description="核心 Server、Web 与本机 daemon 已运行；移动端正按 Web 工作台模型推进，不宣传为完整远程桌面。"
+  />
+
+  <Features
+    id="execution"
+    tagline="RUNTIME CONTRACT"
+    title="平台不直接依赖某一个 CLI 的内部实现。"
+    columns={3}
+    items={[
+      {
+        title: '统一调度',
+        description: '将不同 runtime 的启动、会话、流式输出、中断和恢复收敛为平台可理解的执行契约。',
+        icon: 'tabler:route',
+      },
+      {
+        title: '本地边界',
+        description: '代码、workspace 与命令执行保留在用户机器；业务状态和协作关系由 Workspace Server 维护。',
+        icon: 'tabler:device-desktop-code',
+      },
+      {
+        title: '状态回写',
+        description: '运行事件、诊断、权限请求和最终结果回到原始 Channel 与 Thread，形成可检查记录。',
+        icon: 'tabler:activity-heartbeat',
+      },
+    ]}
+  />
+
+  <Content
+    isReversed
+    tagline="PRODUCT SURFACE"
+    title="每台执行机器都有明确、可核验的运行状态。"
+    items={[
+      {
+        title: '能力探测',
+        description: 'daemon 检测本机已安装且已登录的 runtime 与模型能力，前端不维护一份虚构列表。',
+      },
+      {
+        title: '连接状态',
+        description: '长期连接和 heartbeat 决定机器是否在线；版本、类型与最近活动在 Machine 页面集中呈现。',
+      },
+      { title: '安装与诊断', description: '安装命令、daemon 类型与诊断信息使用同一产品入口，便于定位执行环境问题。' },
+    ]}
+  >
+    <Fragment slot="image"
+      ><img
+        class="w-full rounded-xl border border-slate-700 shadow-2xl"
+        src="/shots/machine.png"
+        alt="Machine 页面展示 daemon、runtime 与连接状态"
+        loading="lazy"
+      /></Fragment
+    >
+  </Content>
+
+  <Steps
+    tagline="REQUEST LIFECYCLE"
+    title="一次任务，从业务入口抵达本机执行。"
+    items={[
+      {
+        title: '01 · 发起',
+        description: '用户从 Web、移动端或 Channel 提交任务，并明确寻址对应 AI员工。',
+        icon: 'tabler:message-plus',
+      },
+      {
+        title: '02 · 路由',
+        description: 'Server 持久化消息，依据员工与 Machine 关系将执行请求发送给对应 daemon。',
+        icon: 'tabler:arrows-split',
+      },
+      {
+        title: '03 · 执行',
+        description: 'daemon 在员工 workspace 中调用已配置的 runtime，并持续上报事件与诊断。',
+        icon: 'tabler:terminal-2',
+      },
+      {
+        title: '04 · 协作',
+        description: '输出进入原消息 Thread；其他员工可被继续 @mention，人类处理审批与异常。',
+        icon: 'tabler:messages',
+      },
+    ]}
+  />
+
+  <Content
+    tagline="CHANNEL CONTROL"
+    title="远程控制的核心是可寻址、可观察、可中断。"
+    items={[
+      { title: '明确对象', description: '任务绑定 Workspace、Channel、员工与 Machine，不依赖一个不可追踪的远程终端。' },
+      {
+        title: '过程透明',
+        description: 'Channel 展示任务来源，Thread 保留执行反馈，运行状态与权限请求进入统一工作台。',
+      },
+      { title: '人类控制', description: '敏感操作不会由模型自行放行；拒绝、允许和失效都由平台记录。' },
+    ]}
+    callToAction={{ text: '查看运行时抽象', href: '/posts/runtime-abstraction' }}
+  >
+    <Fragment slot="image"
+      ><img
+        class="w-full rounded-xl border border-slate-700 shadow-2xl"
+        src="/shots/channel.png"
+        alt="Channel 中的任务消息、AI员工回复与执行状态"
+        loading="lazy"
+      /></Fragment
+    >
+  </Content>
+
+  <Features2
+    tagline="SUPPORTED RUNTIMES"
+    title="执行引擎是可替换组件，不是产品入口。"
+    subtitle="当前协议围绕长期员工与本机执行设计，可接入 Claude Code、Codex CLI、Cursor Agent、Gemini CLI、Kimi CLI、Hermes 与 OpenCode。"
+    columns={2}
+    items={[
+      { title: '平台层', description: '统一员工身份、协作空间、任务状态、审批和审计。', icon: 'tabler:building' },
+      {
+        title: '适配层',
+        description: '保留每种 runtime 的模型、会话和权限差异，同时向平台提供一致事件。',
+        icon: 'tabler:plug-connected',
+      },
+    ]}
+  />
+
+  <CallToAction
+    title="运行底座之上，Agent 才能成为长期员工。"
+    subtitle="下一部分介绍岗位、业务入口、组织资料和持续改进如何进入同一个员工模型。"
+    actions={[
+      { variant: 'primary', text: '继续看 AI员工', href: '/employees', icon: 'tabler:arrow-right' },
+      { text: '返回首页', href: '/' },
+    ]}
+  />
+</Layout>
