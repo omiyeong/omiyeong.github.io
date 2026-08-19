@@ -1,0 +1,231 @@
+---
+export interface NodeItem {
+  title: string;
+  detail?: string;
+  badge?: string;
+}
+
+export interface Lane {
+  label: string;
+  caption?: string;
+  nodes: NodeItem[];
+}
+
+export interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  lanes: Lane[];
+  accent?: string;
+  note?: string;
+}
+
+const { id, eyebrow = 'BUSINESS ARCHITECTURE', title, description, lanes, accent = '#4388ff', note } = Astro.props;
+---
+
+<section id={id} class="architecture-map" style={`--map-accent:${accent};--lane-count:${lanes.length}`}>
+  <div class="architecture-heading">
+    <p>{eyebrow}</p>
+    <h2>{title}</h2>
+    {description && <span>{description}</span>}
+  </div>
+
+  <div class="architecture-canvas">
+    {
+      lanes.map((lane, laneIndex) => (
+        <article class="architecture-lane">
+          <header>
+            <span>{String(laneIndex + 1).padStart(2, '0')}</span>
+            <div>
+              <strong>{lane.label}</strong>
+              {lane.caption && <small>{lane.caption}</small>}
+            </div>
+          </header>
+          <div class="architecture-nodes">
+            {lane.nodes.map((node) => (
+              <div class="architecture-node">
+                <i aria-hidden="true" />
+                <div>
+                  <strong>{node.title}</strong>
+                  {node.detail && <small>{node.detail}</small>}
+                </div>
+                {node.badge && <em>{node.badge}</em>}
+              </div>
+            ))}
+          </div>
+        </article>
+      ))
+    }
+  </div>
+  {note && <p class="architecture-note">{note}</p>}
+</section>
+
+<style>
+  .architecture-map {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 7rem 1.5rem;
+  }
+  .architecture-heading {
+    max-width: 54rem;
+    margin-bottom: 2.75rem;
+  }
+  .architecture-heading p {
+    margin: 0 0 0.8rem;
+    color: var(--map-accent);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+  }
+  .architecture-heading h2 {
+    margin: 0;
+    color: #f3f6fb;
+    font-size: clamp(2rem, 4.4vw, 4.75rem);
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+  }
+  .architecture-heading > span {
+    display: block;
+    max-width: 44rem;
+    margin-top: 1.25rem;
+    color: #9da8b8;
+    font-size: 1.03rem;
+    line-height: 1.75;
+  }
+  .architecture-canvas {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--lane-count, 4), minmax(0, 1fr));
+    gap: 2.2rem;
+    padding: 1.1rem;
+    border: 1px solid #202938;
+    border-radius: 1.5rem;
+    background:
+      radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--map-accent) 12%, transparent), transparent 42%),
+      #0c1016;
+    box-shadow: 0 2rem 6rem rgb(0 0 0 / 35%);
+  }
+  .architecture-lane {
+    position: relative;
+    min-width: 0;
+    padding: 1rem;
+    border-radius: 1rem;
+    background: rgb(255 255 255 / 2.4%);
+  }
+  .architecture-lane header {
+    display: flex;
+    gap: 0.65rem;
+    min-height: 3.4rem;
+    border-bottom: 1px solid #252d39;
+  }
+  .architecture-lane header > span {
+    color: var(--map-accent);
+    font: 700 0.64rem/1 monospace;
+  }
+  .architecture-lane header div {
+    display: grid;
+    gap: 0.2rem;
+  }
+  .architecture-lane header strong {
+    color: #eaf0f8;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .architecture-lane header small {
+    color: #667386;
+    font-size: 0.69rem;
+    line-height: 1.35;
+  }
+  .architecture-nodes {
+    display: grid;
+    gap: 0.62rem;
+    padding-top: 0.85rem;
+  }
+  .architecture-node {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.6rem;
+    align-items: start;
+    min-height: 3.8rem;
+    padding: 0.75rem;
+    border: 1px solid #273140;
+    border-radius: 0.8rem;
+    background: #111720;
+  }
+  .architecture-node i {
+    width: 0.48rem;
+    height: 0.48rem;
+    margin-top: 0.28rem;
+    border-radius: 50%;
+    background: var(--map-accent);
+    box-shadow: 0 0 1rem var(--map-accent);
+    animation: signal 2.4s ease-in-out infinite;
+  }
+  .architecture-node div {
+    display: grid;
+    gap: 0.22rem;
+  }
+  .architecture-node strong {
+    color: #edf2f8;
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+  .architecture-node small {
+    color: #7d8999;
+    font-size: 0.67rem;
+    line-height: 1.45;
+  }
+  .architecture-node em {
+    grid-column: 2;
+    width: fit-content;
+    color: var(--map-accent);
+    font: 700 0.58rem/1.2 monospace;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .architecture-lane:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    top: 50%;
+    right: -1.75rem;
+    z-index: 3;
+    color: var(--map-accent);
+    font: 700 1rem/1 monospace;
+  }
+  .architecture-note {
+    margin: 1.15rem 0 0;
+    color: #6f7b8d;
+    font-size: 0.76rem;
+    line-height: 1.6;
+  }
+  @keyframes signal {
+    50% {
+      opacity: 0.35;
+      transform: scale(0.7);
+    }
+  }
+  @media (max-width: 1023px) {
+    .architecture-canvas {
+      grid-template-columns: 1fr 1fr;
+    }
+    .architecture-lane::after {
+      display: none;
+    }
+  }
+  @media (max-width: 640px) {
+    .architecture-map {
+      padding: 4.5rem 1rem;
+    }
+    .architecture-canvas {
+      grid-template-columns: 1fr;
+      padding: 0.65rem;
+      gap: 0.7rem;
+    }
+    .architecture-heading h2 {
+      font-size: 2.5rem;
+    }
+  }
+</style>

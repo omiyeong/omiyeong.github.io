@@ -1,0 +1,231 @@
+---
+export interface DemoStep {
+  title: string;
+  detail: string;
+}
+
+export interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  status?: string;
+  steps: DemoStep[];
+  accent?: string;
+  caption?: string;
+  isReversed?: boolean;
+  mediaVariant?: 'wide' | 'phone';
+}
+
+const {
+  id,
+  eyebrow = 'HOW IT WORKS',
+  title,
+  description,
+  status = 'REAL PRODUCT FLOW',
+  steps,
+  accent = '#4388ff',
+  caption,
+  isReversed = false,
+  mediaVariant = 'wide',
+} = Astro.props;
+---
+
+<section id={id} class:list={['demo-stage', mediaVariant, { reversed: isReversed }]} style={`--demo-accent:${accent}`}>
+  <div class="demo-copy">
+    <p class="demo-eyebrow">{eyebrow}</p>
+    <h2>{title}</h2>
+    {description && <p class="demo-description">{description}</p>}
+    <ol>
+      {
+        steps.map((step, index) => (
+          <li>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <strong>{step.title}</strong>
+              <small>{step.detail}</small>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+  <figure class="demo-media">
+    <div class="demo-toolbar">
+      <span><i></i> {status}</span>
+      <em>NIUMA / LIVE SURFACE</em>
+    </div>
+    <div class="demo-slot"><slot /></div>
+    {caption && <figcaption>{caption}</figcaption>}
+  </figure>
+</section>
+
+<style>
+  .demo-stage {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 7rem 1.5rem;
+    display: grid;
+    grid-template-columns: minmax(18rem, 0.72fr) minmax(0, 1.28fr);
+    gap: 4.5rem;
+    align-items: center;
+  }
+  .demo-stage.reversed .demo-copy {
+    order: 2;
+  }
+  .demo-stage.reversed .demo-media {
+    order: 1;
+  }
+  .demo-eyebrow {
+    margin: 0 0 1rem;
+    color: var(--demo-accent);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+  }
+  .demo-copy h2 {
+    margin: 0;
+    color: #f4f7fb;
+    font-size: clamp(2.25rem, 4.6vw, 4.7rem);
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+  }
+  .demo-description {
+    margin: 1.35rem 0 0;
+    color: #8e9aab;
+    line-height: 1.75;
+  }
+  .demo-copy ol {
+    display: grid;
+    gap: 0;
+    margin: 2rem 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid #27303d;
+  }
+  .demo-copy li {
+    display: grid;
+    grid-template-columns: 2.25rem 1fr;
+    gap: 0.7rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #27303d;
+  }
+  .demo-copy li > span {
+    padding-top: 0.18rem;
+    color: var(--demo-accent);
+    font: 700 0.62rem/1 monospace;
+  }
+  .demo-copy li div {
+    display: grid;
+    gap: 0.3rem;
+  }
+  .demo-copy li strong {
+    color: #eaf0f7;
+    font-size: 0.88rem;
+  }
+  .demo-copy li small {
+    color: #758194;
+    font-size: 0.76rem;
+    line-height: 1.55;
+  }
+  .demo-media {
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid #273140;
+    border-radius: 1.15rem;
+    background: #0b0f15;
+    box-shadow: 0 2rem 7rem rgb(0 0 0 / 42%);
+  }
+  .demo-toolbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #273140;
+    color: #778396;
+    font: 700 0.58rem/1 monospace;
+    letter-spacing: 0.09em;
+  }
+  .demo-toolbar span {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #a7b2c2;
+  }
+  .demo-toolbar i {
+    display: block;
+    width: 0.46rem;
+    height: 0.46rem;
+    border-radius: 50%;
+    background: var(--demo-accent);
+    box-shadow: 0 0 0.8rem var(--demo-accent);
+    animation: live 1.8s ease-in-out infinite;
+  }
+  .demo-toolbar em {
+    font-style: normal;
+  }
+  .demo-slot {
+    min-height: 18rem;
+    background: linear-gradient(145deg, rgb(255 255 255 / 2%), transparent);
+  }
+  .demo-slot :global(img),
+  .demo-slot :global(video) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .demo-stage.phone .demo-slot {
+    display: grid;
+    min-height: 42rem;
+    place-items: center;
+    padding: 2rem;
+    background:
+      radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--demo-accent) 16%, transparent), transparent 42%),
+      linear-gradient(145deg, rgb(255 255 255 / 2%), transparent);
+  }
+  .demo-stage.phone .demo-slot :global(img) {
+    width: min(100%, 20rem);
+    border: 1px solid #344154;
+    border-radius: 1.5rem;
+    box-shadow: 0 2rem 5rem rgb(0 0 0 / 50%);
+  }
+  .demo-media figcaption {
+    padding: 0.8rem 1rem;
+    border-top: 1px solid #273140;
+    color: #728094;
+    font-size: 0.7rem;
+    line-height: 1.5;
+  }
+  @keyframes live {
+    50% {
+      opacity: 0.35;
+      transform: scale(0.72);
+    }
+  }
+  @media (max-width: 900px) {
+    .demo-stage {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .demo-stage.reversed .demo-copy,
+    .demo-stage.reversed .demo-media {
+      order: initial;
+    }
+  }
+  @media (max-width: 640px) {
+    .demo-stage {
+      padding: 4.5rem 1rem;
+    }
+    .demo-toolbar em {
+      display: none;
+    }
+    .demo-slot {
+      min-height: 10rem;
+    }
+    .demo-stage.phone .demo-slot {
+      min-height: 34rem;
+      padding: 1rem;
+    }
+  }
+</style>

@@ -1,0 +1,221 @@
+---
+export interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  description: string;
+  accent?: string;
+}
+
+const { id, eyebrow = 'NIUMA MOBILE APP', title, description, accent = '#4388ff' } = Astro.props;
+---
+
+<section id={id} class="mobile-showcase" style={`--mobile-accent:${accent}`}>
+  <div class="mobile-copy">
+    <p>{eyebrow}</p>
+    <h2>{title}</h2>
+    <div class="mobile-rule"></div>
+    <span>{description}</span>
+    <dl>
+      <div><dt>01</dt><dd>从手机进入 Channel，查看任务上下文与员工回复。</dd></div>
+      <div><dt>02</dt><dd>随时检查 AI员工的岗位、runtime、模型与工作状态。</dd></div>
+      <div><dt>03</dt><dd>确认 Machine、daemon、沙箱和本机 runtime 是否可用。</dd></div>
+    </dl>
+  </div>
+
+  <div class="device-stage">
+    <div class="stage-grid"></div>
+    <figure class="device device-back device-left">
+      <img src="/shots/app-channel.jpg" alt="NiuMa App 中的 engineering 协作频道" loading="lazy" />
+      <figcaption>CHANNEL</figcaption>
+    </figure>
+    <figure class="device device-back device-right">
+      <img src="/shots/app-machine.jpg" alt="NiuMa App 中的 Machine 能力详情" loading="lazy" />
+      <figcaption>MACHINE</figcaption>
+    </figure>
+    <figure class="device device-main">
+      <div class="live-label"><i></i> 9 SEC APP TOUR</div>
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="/shots/app-flow-poster.jpg"
+        aria-label="NiuMa App 从频道到员工和机器的动态巡览"
+        ><source src="/shots/app-flow.webm" type="video/webm" /></video
+      >
+      <figcaption>LIVE MOBILE WORKSPACE</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .mobile-showcase {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 7rem 1.5rem;
+    display: grid;
+    grid-template-columns: 0.72fr 1.28fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .mobile-copy > p {
+    margin: 0 0 1rem;
+    color: var(--mobile-accent);
+    font: 800 0.7rem/1 monospace;
+    letter-spacing: 0.18em;
+  }
+  .mobile-copy h2 {
+    margin: 0;
+    color: #f4f7fb;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+  }
+  .mobile-copy > span {
+    display: block;
+    color: #8e9aab;
+    line-height: 1.75;
+  }
+  .mobile-rule {
+    width: 3rem;
+    height: 2px;
+    margin: 1.6rem 0;
+    background: var(--mobile-accent);
+    box-shadow: 0 0 1rem var(--mobile-accent);
+  }
+  .mobile-copy dl {
+    margin: 2rem 0 0;
+    border-top: 1px solid #27303d;
+  }
+  .mobile-copy dl div {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 0.8rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #27303d;
+  }
+  .mobile-copy dt {
+    color: var(--mobile-accent);
+    font: 700 0.62rem/1.5 monospace;
+  }
+  .mobile-copy dd {
+    margin: 0;
+    color: #a1acbb;
+    font-size: 0.78rem;
+    line-height: 1.6;
+  }
+  .device-stage {
+    position: relative;
+    min-height: 47rem;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid #273140;
+    border-radius: 1.5rem;
+    background:
+      radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--mobile-accent) 18%, transparent), transparent 38%),
+      #080c12;
+  }
+  .stage-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.18;
+    background-image:
+      linear-gradient(#374151 1px, transparent 1px), linear-gradient(90deg, #374151 1px, transparent 1px);
+    background-size: 2rem 2rem;
+    mask-image: linear-gradient(to bottom, #000, transparent 80%);
+  }
+  .device {
+    position: absolute;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid #344154;
+    border-radius: 1.7rem;
+    background: #090d13;
+    box-shadow: 0 2rem 5rem rgb(0 0 0 / 55%);
+  }
+  .device img,
+  .device video {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .device figcaption {
+    padding: 0.75rem 1rem;
+    border-top: 1px solid #273140;
+    color: #768397;
+    font: 700 0.58rem/1 monospace;
+    letter-spacing: 0.12em;
+  }
+  .device-main {
+    z-index: 3;
+    width: min(45%, 20rem);
+    transform: rotate(-1.5deg);
+  }
+  .device-back {
+    z-index: 1;
+    width: min(32%, 14rem);
+    opacity: 0.62;
+    filter: saturate(0.65);
+  }
+  .device-left {
+    left: 4%;
+    transform: translateY(2rem) rotate(-7deg);
+  }
+  .device-right {
+    right: 4%;
+    transform: translateY(-1rem) rotate(7deg);
+  }
+  .live-label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.75rem 1rem;
+    color: #b5c0cf;
+    font: 700 0.58rem/1 monospace;
+    letter-spacing: 0.08em;
+  }
+  .live-label i {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--mobile-accent);
+    box-shadow: 0 0 0.8rem var(--mobile-accent);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    50% {
+      opacity: 0.35;
+      transform: scale(0.7);
+    }
+  }
+  @media (max-width: 900px) {
+    .mobile-showcase {
+      grid-template-columns: 1fr;
+    }
+    .device-stage {
+      min-height: 43rem;
+    }
+  }
+  @media (max-width: 640px) {
+    .mobile-showcase {
+      padding: 4.5rem 1rem;
+    }
+    .device-stage {
+      min-height: 37rem;
+    }
+    .device-main {
+      width: 58%;
+    }
+    .device-back {
+      width: 38%;
+    }
+    .device-left {
+      left: -8%;
+    }
+    .device-right {
+      right: -8%;
+    }
+  }
+</style>

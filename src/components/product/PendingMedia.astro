@@ -1,0 +1,98 @@
+---
+export interface Props {
+  index: string;
+  title: string;
+  description: string;
+  accent?: string;
+}
+
+const { index, title, description, accent = '#f3aa4e' } = Astro.props;
+---
+
+<div class="pending-media" style={`--pending-accent:${accent}`}>
+  <div class="pending-grid" aria-hidden="true"></div>
+  <div class="pending-index">{index}</div>
+  <div class="pending-copy">
+    <span>PRODUCT FOOTAGE / PENDING</span>
+    <h3>{title}</h3>
+    <p>{description}</p>
+  </div>
+  <div class="pending-track" aria-hidden="true">
+    <i></i><i></i><i></i><i></i>
+  </div>
+</div>
+
+<style>
+  .pending-media {
+    position: relative;
+    min-height: 34rem;
+    overflow: hidden;
+    display: grid;
+    align-content: end;
+    padding: clamp(2rem, 6vw, 4rem);
+    background: #080c12;
+    isolation: isolate;
+  }
+  .pending-grid {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    opacity: 0.22;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 12%) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 12%) 1px, transparent 1px);
+    background-size: 3rem 3rem;
+    mask-image: linear-gradient(to bottom, black, transparent 82%);
+  }
+  .pending-media::after {
+    position: absolute;
+    inset: auto -12% -55% 28%;
+    z-index: -1;
+    height: 92%;
+    border: 1px solid color-mix(in srgb, var(--pending-accent) 40%, transparent);
+    border-radius: 50%;
+    box-shadow: 0 0 9rem color-mix(in srgb, var(--pending-accent) 16%, transparent);
+    content: '';
+  }
+  .pending-index {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    color: color-mix(in srgb, var(--pending-accent) 70%, white);
+    font: 700 clamp(3.5rem, 9vw, 7rem)/1 monospace;
+    opacity: 0.2;
+  }
+  .pending-copy {
+    max-width: 36rem;
+  }
+  .pending-copy span {
+    color: var(--pending-accent);
+    font: 700 0.64rem/1 monospace;
+    letter-spacing: 0.16em;
+  }
+  .pending-copy h3 {
+    margin: 0.85rem 0 0;
+    color: #edf3fa;
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
+    letter-spacing: -0.045em;
+  }
+  .pending-copy p {
+    max-width: 33rem;
+    margin: 1rem 0 0;
+    color: #8996a8;
+    line-height: 1.7;
+  }
+  .pending-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.45rem;
+    margin-top: 2.5rem;
+  }
+  .pending-track i {
+    height: 0.22rem;
+    background: #2c3542;
+  }
+  .pending-track i:first-child {
+    background: var(--pending-accent);
+  }
+</style>
