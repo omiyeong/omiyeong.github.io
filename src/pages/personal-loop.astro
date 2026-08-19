@@ -1,16 +1,16 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
-import Note from '~/components/widgets/Note.astro';
-import Features from '~/components/widgets/Features.astro';
-import Content from '~/components/widgets/Content.astro';
-import Steps from '~/components/widgets/Steps.astro';
-import Features2 from '~/components/widgets/Features2.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+import BigClaims from '~/components/product/BigClaims.astro';
+import DemoStage from '~/components/product/DemoStage.astro';
+import PendingMedia from '~/components/product/PendingMedia.astro';
+import ArchitectureMap from '~/components/product/ArchitectureMap.astro';
+import StatusBand from '~/components/product/StatusBand.astro';
 
 const metadata = {
   title: 'Personal Loop',
-  description: 'NiuMa 的个人研发交付闭环：任务、上下文、隔离执行、测试、独立审查、审批与外部交付。',
+  description: '把任务、隔离执行、测试、独立审查、人类审批和外部交付连接成可恢复闭环。',
 };
 ---
 
@@ -18,165 +18,127 @@ const metadata = {
   <Hero
     tagline="04 · PERSONAL LOOP"
     actions={[
-      { variant: 'primary', text: '查看交付流程', href: '#workflow', icon: 'tabler:arrow-down' },
+      { variant: 'primary', text: '查看交付架构', href: '#loop-architecture', icon: 'tabler:arrow-down' },
       { text: '进入工程笔记', href: '/engineering' },
     ]}
   >
-    <Fragment slot="title">
-      把一次 Agent 修改，<br /><span class="text-accent dark:text-white">变成可验证的研发交付。</span>
-    </Fragment>
-    <Fragment slot="subtitle">
-      Personal Loop 面向一个 Owner 的研发工作：从飞书或手动接收任务，固定项目上下文，在隔离工作区执行与测试，经独立
-      Review 和人类审批后，再进入 Git、PR 与部署环节。
-    </Fragment>
-    <Fragment slot="image">
-      <img
+    <Fragment slot="title"
+      >“Agent 说完成了”，<br /><span class="text-accent dark:text-white">还不是一次真实交付。</span></Fragment
+    >
+    <Fragment slot="subtitle"
+      >Personal Loop 面向一个 Owner 的研发工作：固定任务与项目上下文，在隔离工作区实现和测试，经独立 Review
+      与人类审批后，再进入 Git、PR 和部署结果对账。</Fragment
+    >
+    <Fragment slot="image"
+      ><img
         class="w-full rounded-xl border border-slate-700 shadow-2xl"
-        src="/shots/channel-live.png"
-        alt="NiuMa 当前任务入口与运行状态界面"
-      />
-    </Fragment>
+        src="/shots/tasks-live.png"
+        alt="NiuMa 任务看板中的进行中任务与运行状态"
+      /></Fragment
+    >
   </Hero>
 
-  <Note
-    title="当前状态"
-    description="该方向在独立分支持续验证；任务、执行、测试、Review、审批与交付控制已有实现，自动部署仍受严格证据条件约束。"
-  />
-
-  <Steps
-    id="workflow"
-    tagline="DELIVERY WORKFLOW"
-    title="一个任务只有在证据完整时才向前推进。"
-    items={[
+  <BigClaims
+    title="完成必须由工作流和证据共同确认。"
+    accent="#bd8cff"
+    claims={[
       {
-        title: '01 · 任务进入',
-        description: '从飞书显式接收或由 Owner 手动指派，记录任务来源、目标和验收要求。',
-        icon: 'tabler:inbox',
+        title: 'Workflow 拥有状态。',
+        detail: 'Task、Run、Step、Approval、Evidence 与 External Action 分开记录；Agent 只负责节点内推理和执行。',
       },
       {
-        title: '02 · 固定上下文',
-        description: '将仓库、分支、环境、规则和预期结果固化为本次运行的上下文快照。',
-        icon: 'tabler:camera',
+        title: '每一次重试继承失败。',
+        detail: '上一轮错误、Review 和证据进入下一轮提示，避免状态保留了但执行者仍从头猜测。',
       },
       {
-        title: '03 · 隔离执行',
-        description: 'Agent 在独立 worktree 中调查、修改和测试，不覆盖 Owner 正在使用的工作区。',
-        icon: 'tabler:git-branch',
-      },
-      {
-        title: '04 · 独立审查',
-        description: 'Review 使用独立上下文和证据，不能直接复用实现 Agent 对自身结果的判断。',
-        icon: 'tabler:zoom-check',
-      },
-      {
-        title: '05 · 人类决策',
-        description: '审批绑定候选版本、证据和有效期；拒绝、重试或继续都有明确状态。',
-        icon: 'tabler:user-shield',
-      },
-      {
-        title: '06 · 外部交付',
-        description: '创建 Draft PR、合并或部署后读取外部回执，并将最终状态返回任务入口。',
-        icon: 'tabler:rocket',
+        title: '外部成功必须真实对账。',
+        detail: '本地生成 PR 文案或部署命令不等于完成；必须读取 Git、CI 和服务健康的真实回执。',
       },
     ]}
   />
 
-  <Content
-    isReversed
-    tagline="CONTROL PLANE"
-    title="Workflow 拥有状态，Agent 只负责节点内的推理与执行。"
-    items={[
+  <ArchitectureMap
+    id="loop-architecture"
+    accent="#bd8cff"
+    title="一个 Owner，一条可恢复、可审核的交付链路。"
+    description="确定性 workflow 控制状态转换，不确定性 Agent 负责调查和执行；高风险边界由人类作出明确决定。"
+    lanes={[
       {
-        title: '状态分层',
-        description:
-          'Task、Workflow Run、Step Run、Approval、Evidence 与 External Action 分开记录，避免一个状态覆盖所有事实。',
+        label: 'Task Intake',
+        caption: '先固定要解决什么',
+        nodes: [{ title: 'Feishu / manual task' }, { title: 'Acceptance & owner' }, { title: 'Context snapshot' }],
       },
       {
-        title: '并发约束',
-        description: '同一任务不能并发执行；不同任务可以并行，共享仓库镜像等临界资源使用窄锁保护。',
-      },
-      { title: '失败可恢复', description: '每一轮保留输入、证据和错误；重试必须收到上一轮失败原因，而不是从头猜测。' },
-    ]}
-  >
-    <Fragment slot="image"
-      ><img
-        class="w-full rounded-xl border border-slate-700 shadow-2xl"
-        src="/shots/machine.png"
-        alt="NiuMa Machine 页面中的执行环境与活动状态"
-        loading="lazy"
-      /></Fragment
-    >
-  </Content>
-
-  <Features2
-    tagline="EVIDENCE CONTRACT"
-    title="完成不是 Agent 的一句结论。"
-    subtitle="流程依据可复查的产物改变状态，并将关键外部动作留给明确的人类关口。"
-    columns={3}
-    items={[
-      {
-        title: '实现证据',
-        description: '补丁、提交候选、命令输出、测试结果与 exit code 对应同一次运行。',
-        icon: 'tabler:file-code',
+        label: 'Isolated Work',
+        caption: '实现不污染当前工作区',
+        nodes: [{ title: 'Repository worktree' }, { title: 'Agent investigation' }, { title: 'Patch & tests' }],
       },
       {
-        title: '审查证据',
-        description: '独立 Review 读取真实变更和验收标准，指出阻断问题或给出可追溯结论。',
-        icon: 'tabler:clipboard-check',
+        label: 'Independent Gate',
+        caption: '实现者不能自证完成',
+        nodes: [{ title: 'Evidence manifest' }, { title: 'Independent review' }, { title: 'Human approval' }],
       },
       {
-        title: '外部回执',
-        description: 'Git、PR 与部署平台的真实状态用于对账；本地生成的文案不能替代外部成功。',
-        icon: 'tabler:receipt',
+        label: 'External Delivery',
+        caption: '结果必须对账',
+        nodes: [{ title: 'Draft PR / merge' }, { title: 'CI / deploy receipt' }, { title: 'Health observation' }],
       },
     ]}
-  >
-    <Fragment slot="bg"><div class="absolute inset-0 bg-slate-50 dark:bg-slate-950"></div></Fragment>
-  </Features2>
+    note="同一任务不能并发执行；不同任务可以并行。共享仓库镜像等临界资源使用窄锁，不把整个 runner 全局串行化。"
+  />
 
-  <Content
-    tagline="HUMAN GATES"
-    title="高风险动作需要绑定对象、证据和有效期的审批。"
-    items={[
-      { title: '候选版本明确', description: '审批针对具体 candidate SHA；候选发生变化后，旧审批不能继续使用。' },
-      { title: '权限范围明确', description: '提交、推送、合并与部署是不同动作，流程不能用一次宽泛同意覆盖全部权限。' },
+  <DemoStage
+    eyebrow="TARGET DELIVERY EXPERIENCE"
+    title="从一句任务，到一个带证据的候选交付。"
+    description="当前页面先明确正式动图需要覆盖的完整流程。真实 Loop UI 录像将在对应环境素材提供后补入。"
+    accent="#bd8cff"
+    status="BRANCH VALIDATION"
+    steps={[
+      { title: '任务进入并固定验收', detail: '记录 Owner、仓库、环境、预期结果和禁止事项。' },
+      { title: 'Agent 在 worktree 执行', detail: '调查、修改和测试不覆盖用户当前工作目录。' },
+      { title: '独立 Review 检查证据', detail: '读取真实 diff、测试输出和历史 oracle，决定通过或重试。' },
+      { title: '人类批准外部动作', detail: '审批绑定 candidate SHA，再创建 PR、合并或部署并读取回执。' },
+    ]}
+    caption="这一方向不使用平台 Channel 截图占位。待 Personal Loop 环境素材提供后，将按任务、执行、独立审查和外部交付四步制作专属动图。"
+  >
+    <PendingMedia
+      index="04"
+      title="等待 Personal Loop 素材"
+      description="需要任务进入、隔离 worktree 执行、Review 与证据，以及 PR 或部署回执的连续画面。"
+      accent="#bd8cff"
+    />
+  </DemoStage>
+
+  <BigClaims
+    eyebrow="HUMAN GATES"
+    accent="#bd8cff"
+    claims={[
       {
-        title: '结果可对账',
-        description: '动作结束后读取外部状态；失败进入补偿或人工处理，不把请求已发送当作交付完成。',
+        title: '没有可靠 oracle，就交给人。',
+        detail: '缺少测试、历史行为依据或明确负责人时进入 NEEDS_HUMAN，不让模型自己发明验收标准。',
+      },
+      {
+        title: '候选改变，审批失效。',
+        detail: '批准针对具体 candidate SHA 和证据；修改发生后必须重新建立审查与授权。',
+      },
+      {
+        title: '部署无法观察，就不自动部署。',
+        detail: '制品、环境、补偿和健康观察契约不完整时，流程停在人工可接管节点。',
       },
     ]}
-  >
-    <Fragment slot="image"
-      ><img
-        class="w-full rounded-xl border border-slate-700 shadow-2xl"
-        src="/shots/channel.png"
-        alt="Channel 与 Thread 中的任务反馈和人类协作入口"
-        loading="lazy"
-      /></Fragment
-    >
-  </Content>
+  />
 
-  <Features
-    tagline="CURRENT BOUNDARY"
-    title="不满足控制条件时，流程必须停下来。"
-    columns={2}
+  <StatusBand
     items={[
-      {
-        title: '没有可靠验收依据',
-        description: '缺少测试、历史 oracle 或明确负责人时，任务进入 NEEDS_HUMAN，而不是让模型自行宣布通过。',
-        icon: 'tabler:hand-stop',
-      },
-      {
-        title: '没有可对账部署契约',
-        description: '无法精确识别制品、环境与健康观察时，只交付到人工可接管节点，不宣传为全自动部署。',
-        icon: 'tabler:alert-triangle',
-      },
+      { label: 'Task model', value: '持久任务、运行轮次与步骤状态', state: 'internal' },
+      { label: 'Execution', value: '隔离 worktree、测试与证据收集', state: 'internal' },
+      { label: 'Review', value: '独立审查、失败继承与人工关口', state: 'validation' },
+      { label: 'Delivery', value: 'PR 与部署外部状态持续对账', state: 'validation' },
     ]}
   />
 
   <CallToAction
-    title="查看这些边界如何落到协议与工程实现。"
-    subtitle="工程笔记收录 runtime 抽象、daemon 选型、鉴权检测与例程执行设计。"
+    title="实现细节、协议和被否证的路径都留在工程记录里。"
     actions={[
       { variant: 'primary', text: '进入工程笔记', href: '/engineering', icon: 'tabler:arrow-right' },
       { text: '返回首页', href: '/' },
