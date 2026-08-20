@@ -1,0 +1,122 @@
+---
+export interface Evidence {
+  label: string;
+  value: string;
+  state?: 'live' | 'internal' | 'validation' | 'record';
+}
+
+export interface Props {
+  title?: string;
+  items: Evidence[];
+}
+
+const { title = 'CURRENT EVIDENCE', items } = Astro.props;
+---
+
+<section class="status-band">
+  <p>{title}</p>
+  <div>
+    {
+      items.map((item) => (
+        <article data-state={item.state ?? 'record'}>
+          <span>{item.label}</span>
+          <strong>{item.value}</strong>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .status-band {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 6rem;
+  }
+  .status-band > p {
+    margin: 0 0 0.9rem;
+    color: #657286;
+    font: 700 0.62rem/1 monospace;
+    letter-spacing: 0.15em;
+  }
+  .status-band > div {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border: 1px solid #27303d;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  .status-band article {
+    position: relative;
+    display: grid;
+    gap: 0.55rem;
+    min-height: 6.5rem;
+    padding: 1.2rem;
+    border-right: 1px solid #27303d;
+    background: #0c1118;
+  }
+  .status-band article:last-child {
+    border-right: 0;
+  }
+  .status-band article::before {
+    content: '';
+    position: absolute;
+    top: 1.3rem;
+    right: 1.2rem;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: #718096;
+  }
+  .status-band article[data-state='live']::before {
+    background: #45d483;
+    box-shadow: 0 0 0.8rem #45d483;
+  }
+  .status-band article[data-state='internal']::before {
+    background: #4388ff;
+    box-shadow: 0 0 0.8rem #4388ff;
+  }
+  .status-band article[data-state='validation']::before {
+    background: #f3aa4e;
+    box-shadow: 0 0 0.8rem #f3aa4e;
+  }
+  .status-band span {
+    color: #677487;
+    font: 700 0.58rem/1.2 monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .status-band strong {
+    align-self: end;
+    max-width: 14rem;
+    color: #dce4ee;
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+  @media (max-width: 850px) {
+    .status-band > div {
+      grid-template-columns: 1fr 1fr;
+    }
+    .status-band article:nth-child(2) {
+      border-right: 0;
+    }
+    .status-band article:nth-child(-n + 2) {
+      border-bottom: 1px solid #27303d;
+    }
+  }
+  @media (max-width: 520px) {
+    .status-band {
+      padding: 1rem 1rem 4rem;
+    }
+    .status-band > div {
+      grid-template-columns: 1fr;
+    }
+    .status-band article {
+      border-right: 0;
+      border-bottom: 1px solid #27303d;
+    }
+    .status-band article:last-child {
+      border-bottom: 0;
+    }
+  }
+</style>

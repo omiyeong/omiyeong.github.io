@@ -1,15 +1,16 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
-import Note from '~/components/widgets/Note.astro';
-import Features from '~/components/widgets/Features.astro';
-import Content from '~/components/widgets/Content.astro';
-import Steps from '~/components/widgets/Steps.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+import BigClaims from '~/components/product/BigClaims.astro';
+import DemoStage from '~/components/product/DemoStage.astro';
+import PendingMedia from '~/components/product/PendingMedia.astro';
+import ArchitectureMap from '~/components/product/ArchitectureMap.astro';
+import StatusBand from '~/components/product/StatusBand.astro';
 
 const metadata = {
   title: '办公协作',
-  description: 'NiuMa 对 AI 办公协作的三次探索，以及当前按项目、版本与责任域组织协作的设计。',
+  description: '从个人分身和全局 Agent 的失败中，收敛到按项目、版本与责任域组织的协作。',
 };
 ---
 
@@ -17,166 +18,125 @@ const metadata = {
   <Hero
     tagline="03 · OFFICE COLLABORATION"
     actions={[
-      { variant: 'primary', text: '查看三次演进', href: '#evolution', icon: 'tabler:arrow-down' },
-      { text: '了解当前边界', href: '#current' },
+      { variant: 'primary', text: '查看当前设计', href: '#responsibility-route', icon: 'tabler:arrow-down' },
+      { text: '查看三次演进', href: '#evolution' },
     ]}
   >
-    <Fragment slot="title">
-      个人效率提高之后，<br /><span class="text-accent dark:text-white">重新设计团队协作。</span>
-    </Fragment>
-    <Fragment slot="subtitle">
-      Coding Agent 已经显著缩短个人实现时间，但团队仍在重复解释背景、寻找负责人和等待授权。NiuMa 先后验证个人分身、全局
-      Agent 与项目责任协作三种路径。
-    </Fragment>
-    <Fragment slot="image">
-      <img
-        class="w-full rounded-xl border border-slate-700 shadow-2xl"
-        src="/shots/channel.png"
-        alt="NiuMa Channel 中的人与 AI员工协作界面"
-      />
-    </Fragment>
-  </Hero>
-
-  <Note
-    title="当前状态"
-    description="项目责任协作位于独立分支进行设计验证，尚未合入当前平台；本页区分历史结论、现有基础设施与待验证能力。"
-  />
-
-  <Features
-    id="evolution"
-    tagline="THREE ITERATIONS"
-    title="每一版都缩小了协作系统需要拥有的上下文。"
-    columns={3}
-    items={[
-      {
-        title: 'V1 · 个人 AI 分身',
-        description:
-          '为每个人构建持续更新的个人上下文，并让分身进入 Channel 代表本人回答。上下文质量难以控制，也要求用户迁移既有工具习惯。',
-        icon: 'tabler:user-circle',
-      },
-      {
-        title: 'V2 · 全局 Agent',
-        description: '定时汇总飞书群聊与私聊，判断是否应回答。飞书接入限制、交互摩擦和全局上下文维护成本使方案停止。',
-        icon: 'tabler:world',
-      },
-      {
-        title: 'V3 · 项目责任协作',
-        description:
-          '按项目或产品版本隔离资料与上下文；个人继续使用自己的 Codex、Claude，通过 skill 或 CLI 接入协作入口。',
-        icon: 'tabler:git-branch',
-      },
-    ]}
-  />
-
-  <Content
-    id="current"
-    isReversed
-    tagline="CURRENT DIRECTION"
-    title="项目总 Agent 管理边界与路由，不替负责人完成工作。"
-    items={[
-      {
-        title: '项目隔离',
-        description: '每个项目或版本拥有独立的成员、资料、决策和责任关系，避免将公司上下文汇入同一个长期会话。',
-      },
-      {
-        title: '责任寻址',
-        description: '跨职责问题先解析项目和责任域，再找到对应负责人，而不是广播给所有成员或擅自读取个人上下文。',
-      },
-      {
-        title: '显式授权',
-        description: '负责人可以授权 Agent 回答、本人接管、转交或拒绝；被授权的信息范围与结果都可追踪。',
-      },
-    ]}
-  >
+    <Fragment slot="title"
+      >个人已经快了，<br /><span class="text-accent dark:text-white">团队为什么还在等待？</span></Fragment
+    >
+    <Fragment slot="subtitle"
+      >Coding Agent 缩短了个人实现时间，但跨职责协作仍要找人、补背景和等待授权。NiuMa
+      经过三次探索，把问题从“共享所有上下文”改成“在正确边界内找到正确负责人”。</Fragment
+    >
     <Fragment slot="image"
       ><img
         class="w-full rounded-xl border border-slate-700 shadow-2xl"
         src="/shots/channel-live.png"
-        alt="现有 Channel 基础设施中的消息、成员和执行状态"
-        loading="lazy"
+        alt="NiuMa Channel 中的人与 AI员工协作"
       /></Fragment
     >
-  </Content>
+  </Hero>
 
-  <Steps
-    tagline="COLLABORATION ROUTE"
-    title="一次跨职责问题的目标路径。"
-    subtitle="以下为当前设计验证流程，不代表已经上线的完整功能。"
-    items={[
+  <BigClaims
+    id="evolution"
+    eyebrow="THREE ITERATIONS"
+    title="每一版，都减少系统需要占有的上下文。"
+    accent="#f3aa4e"
+    claims={[
       {
-        title: '01 · 个人 Agent 提问',
-        description: '成员在自己的 Codex 或 Claude 工作流中调用 NiuMa skill/CLI，无需迁移到新的编辑器。',
-        icon: 'tabler:terminal',
+        number: 'V1',
+        title: '个人 AI 分身。',
+        detail:
+          '试图复制每个人的上下文并代表本人回答。效果难控制，也要求用户从 Codex、Claude 迁移到新的工作入口，因此停止。',
       },
       {
-        title: '02 · 解析项目边界',
-        description: '协作入口识别项目、版本和责任域，只载入该范围内允许使用的资料。',
-        icon: 'tabler:folders',
+        number: 'V2',
+        title: '飞书全局 Agent。',
+        detail: '定时汇总群聊和私聊，判断何时介入。飞书接入限制、体验摩擦和全局上下文维护成本使方案停止。',
       },
       {
-        title: '03 · 路由责任人',
-        description: '系统找到对应负责人，并提供问题、来源与拟使用上下文供其判断。',
-        icon: 'tabler:route-square',
-      },
-      {
-        title: '04 · 确认与回答',
-        description: '负责人决定由 Agent 回答、本人接管、转交或拒绝；结果回到提问者原工作流。',
-        icon: 'tabler:user-check',
+        number: 'V3',
+        title: '项目责任协作。',
+        detail: '保留每个人自己的 Agent；项目入口只管理项目资料、责任关系和最小授权，把问题路由给真正负责的人。',
       },
     ]}
   />
 
-  <Content
-    tagline="EXISTING FOUNDATION"
-    title="当前平台已经具备协作所需的消息与执行基础设施。"
-    items={[
-      { title: 'Channel 与 Thread', description: '人和 AI员工在统一空间中被寻址，主任务与后续协作保持在同一 Thread。' },
+  <ArchitectureMap
+    id="responsibility-route"
+    accent="#f3aa4e"
+    title="协作系统不替人工作，只缩短找到责任人的路径。"
+    description="项目总 Agent 不拥有公司全局上下文，也不接管个人 Agent。它按项目、版本和责任域组织一次明确交接。"
+    lanes={[
       {
-        title: '员工与机器',
-        description: '每个 AI员工绑定明确的职责、runtime 与执行机器，平台可判断任务应由谁、在哪里处理。',
+        label: 'Personal Tool',
+        caption: '不迁移已有工作入口',
+        nodes: [{ title: 'A 的 Codex / Claude' }, { title: 'NiuMa skill / CLI' }],
       },
       {
-        title: '权限与状态',
-        description: '运行状态、审批请求与异常由 Server 统一维护，为后续责任协作提供可审计基础。',
+        label: 'Project Boundary',
+        caption: '只理解当前项目',
+        nodes: [{ title: 'Project & version' }, { title: 'Docs & decisions' }, { title: 'Responsibility map' }],
+      },
+      {
+        label: 'Owner Decision',
+        caption: '负责人保留决定权',
+        nodes: [{ title: 'Agent may answer' }, { title: 'Human takes over' }, { title: 'Transfer / reject' }],
+      },
+      {
+        label: 'Isolated Return',
+        caption: '最小上下文回到原工具',
+        nodes: [{ title: 'Authorized answer' }, { title: 'Source boundary' }, { title: 'Audit record' }],
       },
     ]}
-  >
-    <Fragment slot="image"
-      ><img
-        class="w-full rounded-xl border border-slate-700 shadow-2xl"
-        src="/shots/channel.png"
-        alt="Channel 中的 AI员工寻址、Thread 与运行状态"
-        loading="lazy"
-      /></Fragment
-    >
-  </Content>
+    note="该架构正在独立分支验证，不作为已上线功能宣传。当前主线已经具备 Channel、Thread、AI员工、Machine、权限与运行状态基础。"
+  />
 
-  <Features
-    tagline="DESIGN CONSTRAINTS"
-    title="当前验证聚焦三个判断标准。"
-    columns={3}
+  <DemoStage
+    eyebrow="TARGET EXPERIENCE"
+    title="A 不需要知道该找谁，也不需要离开自己的 Agent。"
+    description="这一段先用目标步骤定义正式动图的验收脚本；等独立分支素材提供后，再补入真实 CLI、责任路由与负责人确认录像。"
+    accent="#f3aa4e"
+    status="DESIGN VALIDATION"
+    steps={[
+      { title: 'A 在个人 Agent 中提问', detail: 'skill/CLI 携带当前项目和问题，不上传全部个人历史。' },
+      { title: '项目入口解析责任域', detail: '根据版本、资料和责任关系定位到 B。' },
+      { title: 'B 决定处理方式', detail: '授权 B-agent 回答、本人接管、转交或拒绝。' },
+      { title: '结果返回 A 的原工作流', detail: '只返回被授权内容、来源边界和可追踪记录。' },
+    ]}
+    caption="这一方向不复用当前 NiuMa 平台截图。待独立分支素材提供后，将按提问、责任路由、负责人确认和结果回传四步制作专属动图。"
+    isReversed
+  >
+    <PendingMedia
+      index="03"
+      title="等待办公协作分支素材"
+      description="需要项目入口、责任路由、负责人授权，以及结果回到个人 Agent 的连续画面。"
+      accent="#f3aa4e"
+    />
+  </DemoStage>
+
+  <BigClaims
+    eyebrow="DESIGN CONSTRAINTS"
+    accent="#f3aa4e"
+    claims={[
+      { title: '不迁移个人工具。', detail: '协作能力进入已有 Codex、Claude 工作流，而不是要求所有成员更换开发入口。' },
+      { title: '不建立公司全局上下文。', detail: '资料按项目、版本和责任域隔离，默认不读取无关群聊、私聊或个人历史。' },
+      { title: '不绕过真正负责人。', detail: '系统加速寻址和交接，但跨职责回答仍由负责人授权，且授权可以拒绝和撤销。' },
+    ]}
+  />
+
+  <StatusBand
     items={[
-      {
-        title: '不迁移个人工具',
-        description: '协作能力进入现有 Codex、Claude 工作流，而不是要求成员改用新的开发入口。',
-        icon: 'tabler:plug',
-      },
-      {
-        title: '不建立全局上下文',
-        description: '资料按项目、版本和责任域隔离，默认不读取无关群聊或个人历史。',
-        icon: 'tabler:lock-square',
-      },
-      {
-        title: '不绕过负责人',
-        description: '跨职责回答需要可撤销授权；系统只加速寻址和交接，不替组织做权限决定。',
-        icon: 'tabler:shield-check',
-      },
+      { label: 'V1', value: '个人分身上下文方案已停止', state: 'record' },
+      { label: 'V2', value: '飞书全局 Agent 方案已停止', state: 'record' },
+      { label: 'Foundation', value: 'Channel、Thread 与员工协作已运行', state: 'live' },
+      { label: 'V3', value: '项目责任协作在独立分支验证', state: 'validation' },
     ]}
   />
 
   <CallToAction
-    title="团队协作之外，个人交付也需要可验证的闭环。"
-    subtitle="Personal Loop 将任务、执行、测试、审查、审批与交付状态连接起来。"
+    title="团队协作负责找到正确的人；Personal Loop 负责把一个人的任务交付到底。"
     actions={[
       { variant: 'primary', text: '继续看 Personal Loop', href: '/personal-loop', icon: 'tabler:arrow-right' },
       { text: '返回首页', href: '/' },
